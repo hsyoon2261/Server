@@ -1,0 +1,16 @@
+E:\csharpstudy\Server\ServerCore\bin\Debug\net5.0\ServerCore.exe
+E:\csharpstudy\Server\ServerCore\bin\Debug\net5.0\ServerCore.deps.json
+E:\csharpstudy\Server\ServerCore\bin\Debug\net5.0\ServerCore.runtimeconfig.json
+E:\csharpstudy\Server\ServerCore\bin\Debug\net5.0\ServerCore.runtimeconfig.dev.json
+E:\csharpstudy\Server\ServerCore\bin\Debug\net5.0\ServerCore.dll
+E:\csharpstudy\Server\ServerCore\bin\Debug\net5.0\ServerCore.pdb
+E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ServerCore.csproj.AssemblyReference.cache
+E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ServerCore.GeneratedMSBuildEditorConfig.editorconfig
+E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ServerCore.AssemblyInfoInputs.cache
+E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ServerCore.AssemblyInfo.cs
+E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ServerCore.csproj.CoreCompileInputs.cache
+E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ServerCore.dll
+E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ref\ServerCore.dll
+E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ServerCore.pdb
+E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ServerCore.genruntimeconfig.cache
+E:\csharpstudy\Server\ServerCore\bin\Debug\net5.0\ref\ServerCore.dll

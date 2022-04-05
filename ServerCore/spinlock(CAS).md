@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace ServerCore
 {
-    //spinlock lock 이 풀릴 때 까지 기다림.
-    class SpinLock
-    {
-        //volatile = 가시성 보장
-        volatile int _locked = 0;
+//spinlock lock 이 풀릴 때 까지 기다림.
+class SpinLock
+{
+//volatile = 가시성 보장
+volatile int _locked = 0;
 
         public void Acquire()
         {
