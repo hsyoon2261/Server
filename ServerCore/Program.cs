@@ -1,73 +1,65 @@
 ﻿using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace ServerCore
 {
-    //spinlock lock 이 풀릴 때 까지 기다림.
-    class SpinLock
-    {
-        //volatile = 가시성 보장
-        volatile int _locked = 0;
-
-        public void Acquire()
-        {
-            while (true)
-            {
-                //int original = Interlocked.Exchange(ref _locked, 1);
-                //original은 스택에 있는, 따라서 경합하지 않는 하나의 스레드에서만
-                //사용하는 값이라서 그냥 읽어도 문제가 없다. (original은 int형 이므로)
-                //if (original == 0)
-                //break;
-                // CAS = Compare and Swap
-                int expected = 0;
-                int desired = 1;
-                if (Interlocked.CompareExchange(ref _locked, desired, expected) == expected)
-                    break;
-            }
-        }
-
-        public void Release()
-        {
-            _locked = 0;
-        }
-    }
+    
 
     class Program
     {
-        private static int _num = 0;
-        private static SpinLock _lock = new SpinLock();
-
-        static void Thread_1()
-        {
-            for (int i = 0; i < 100000; i++)
-            {
-                _lock.Acquire();
-                _num++;
-                _lock.Release();
-            }
-        }
-
-        static void Thread_2()
-        {
-            for (int i = 0; i < 100000; i++)
-            {
-                _lock.Acquire();
-                _num--;
-                _lock.Release();
-            }
-        }
+        private static Listener _listener = new Listener();
 
         static void Main(string[] args)
         {
-            Task t1 = new Task(Thread_1);
-            Task t2 = new Task(Thread_2);
-            t1.Start();
-            t2.Start();
-            Task.WaitAll(t1, t2);
+            //DNS
+            string host = Dns.GetHostName();
+            IPHostEntry ipHost = Dns.GetHostEntry(host);
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
+            
 
-            Console.WriteLine("Task complete " + _num);
+            //address family, socket type, protocol type
+            try
+            {
+                _listener.Init(endPoint);
+                while (true)
+                {
+                    Console.WriteLine("listening...");
+                    //accept = blocking함수라서 모든 실행이 여기서 멈추고
+                    //client 입장 안하면 아래 단계 가지도 않을거고
+                    //client 접속하면 자동으로 완료되면서 다음으로 넘어감.
+                    Socket clientSocket = _listener.Accept();
+
+                    //listening from client
+                    byte[] recvBuff = new byte[1024];
+                    //receive byte (blocking)
+                    int recvBytes = clientSocket.Receive(recvBuff);
+                    //encoding byte to string
+                    string recvData = Encoding.UTF8.GetString(recvBuff, 0, recvBytes);
+                    Console.WriteLine($"From Client = {recvData}");
+
+                    //send
+                    byte[] sendBuff = Encoding.UTF8.GetBytes("Welcome to Server");
+                    //blocking
+                    clientSocket.Send(sendBuff);
+                    //blocking 함수들은 non-blocking(비동기)로 바꿔줘야한다.
+
+                    //kick
+                    clientSocket.Shutdown(SocketShutdown.Both);
+                    Console.WriteLine("Bye..");
+                    clientSocket.Close();
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            
         }
     }
 }
