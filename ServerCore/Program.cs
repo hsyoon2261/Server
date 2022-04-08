@@ -39,7 +39,7 @@ namespace ServerCore
             IPHostEntry ipHost = Dns.GetHostEntry(host);
             IPAddress ipAddr = ipHost.AddressList[1];
             Console.WriteLine(ipAddr.ToString());
-            IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
+            IPEndPoint endPoint = new IPEndPoint(ipAddr, 7888);
 
 
             //address family, socket type, protocol type

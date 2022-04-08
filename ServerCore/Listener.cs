@@ -74,6 +74,34 @@ namespace ServerCore
             //return _listenSocket.Accept();
         //}
     }
+    // class Weapon
+    // {
+    //     public void Attack() { }
+    //     protected int power;
+    // }
+    // class Gun : Weapon
+    // {
+    //     public void Reload() { }
+    //     private int magazine;
+    // }
+    // class Knife : Weapon
+    // {
+    //
+    // }
+    // class Bow : Weapon
+    // {
+    //     private int reach;
+    //     string host = Dns.GetHostName();
+    //     IPHostEntry ipHost2 = Dns.GetHostEntry(host);
+    //     IPAddress ipAddr = ipHost2.AddressList[1];
+    //     public static IPEndPoint endPoint2 = new IPEndPoint(ipAddr, 7888);
+    //
+    //     //socket setting
+    //     Socket socket = new Socket(endPoint2.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+    // }
+    //class hsSocket : Socket(AddressFamily ads, SocketType ype, System.Net.Sockets.ProtocolType tt){}
+
+
 }
 
 /*순서를 다시 정리한다

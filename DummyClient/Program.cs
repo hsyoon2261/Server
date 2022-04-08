@@ -6,6 +6,15 @@ using System.Threading;
 
 namespace DummyClient
 {
+    // public class hssoc : Socket
+    // {
+    //     public string _userId;
+    //     public hssoc(Socket mine) : base(mine.AddressFamily,mine.SocketType,mine.ProtocolType)
+    //     {
+    //         
+    //     }
+    // }
+
     class Program
     {
         static void Main(string[] args)
@@ -15,10 +24,13 @@ namespace DummyClient
                 string host = Dns.GetHostName();
                 IPHostEntry ipHost = Dns.GetHostEntry(host);
                 IPAddress ipAddr = ipHost.AddressList[1];
-                IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
+                IPEndPoint endPoint = new IPEndPoint(ipAddr, 7888);
 
                 //socket setting
-                Socket socket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                // Socket socket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                // hssoc test = new hssoc(socket);
+                // test._userId = "completo";
+                //TODO 만들어보기 
                 try
                 {
                     //connect : blocking 함수 => 못받으면 계속 대기

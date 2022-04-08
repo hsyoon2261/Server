@@ -13,4 +13,4 @@ E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ServerCore.dll
 E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ref\ServerCore.dll
 E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ServerCore.pdb
 E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\ServerCore.genruntimeconfig.cache
-E:\csharpstudy\Server\ServerCore\obj\Debug\net5.0\refint\ServerCore.dll
+E:\csharpstudy\Server\ServerCore\bin\Debug\net5.0\ref\ServerCore.dll

@@ -13,4 +13,4 @@ E:\csharpstudy\Server\DummyClient\obj\Debug\net5.0\DummyClient.dll
 E:\csharpstudy\Server\DummyClient\obj\Debug\net5.0\ref\DummyClient.dll
 E:\csharpstudy\Server\DummyClient\obj\Debug\net5.0\DummyClient.pdb
 E:\csharpstudy\Server\DummyClient\obj\Debug\net5.0\DummyClient.genruntimeconfig.cache
-E:\csharpstudy\Server\DummyClient\obj\Debug\net5.0\refint\DummyClient.dll
+E:\csharpstudy\Server\DummyClient\bin\Debug\net5.0\ref\DummyClient.dll

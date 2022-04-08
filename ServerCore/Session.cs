@@ -33,6 +33,8 @@ namespace ServerCore
             RegisterRecv(recvArgs); //이걸 init에서 시행하지 않고, start라던가 따로 빼서 관리해도 상관없다. 
         }
 
+        
+
         public void Send(byte[] sendBuff)
         {
             _socket.Send(sendBuff);
