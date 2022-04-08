@@ -8,58 +8,51 @@ using System.Threading.Tasks;
 
 namespace ServerCore
 {
-    
-
     class Program
     {
         private static Listener _listener = new Listener();
+
+        static void OnAcceptHandler(Socket clientSocket)
+        {
+            try
+            {
+
+                Session session = new Session();
+                session.Start(clientSocket);
+                byte[] sendBuff = Encoding.UTF8.GetBytes("Hello first chat server !");
+                session.Send(sendBuff);
+                
+                Thread.Sleep(60000);
+                session.Disconnect();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
 
         static void Main(string[] args)
         {
             //DNS
             string host = Dns.GetHostName();
             IPHostEntry ipHost = Dns.GetHostEntry(host);
-            IPAddress ipAddr = ipHost.AddressList[0];
+            IPAddress ipAddr = ipHost.AddressList[1];
+            Console.WriteLine(ipAddr.ToString());
             IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
-            
+
 
             //address family, socket type, protocol type
-            try
+            //start listening from client
+            _listener.Init(endPoint, OnAcceptHandler);
+            Console.WriteLine("listening...");
+            while (true)
             {
-                _listener.Init(endPoint);
-                while (true)
-                {
-                    Console.WriteLine("listening...");
-                    //accept = blocking함수라서 모든 실행이 여기서 멈추고
-                    //client 입장 안하면 아래 단계 가지도 않을거고
-                    //client 접속하면 자동으로 완료되면서 다음으로 넘어감.
-                    Socket clientSocket = _listener.Accept();
-
-                    //listening from client
-                    byte[] recvBuff = new byte[1024];
-                    //receive byte (blocking)
-                    int recvBytes = clientSocket.Receive(recvBuff);
-                    //encoding byte to string
-                    string recvData = Encoding.UTF8.GetString(recvBuff, 0, recvBytes);
-                    Console.WriteLine($"From Client = {recvData}");
-
-                    //send
-                    byte[] sendBuff = Encoding.UTF8.GetBytes("Welcome to Server");
-                    //blocking
-                    clientSocket.Send(sendBuff);
-                    //blocking 함수들은 non-blocking(비동기)로 바꿔줘야한다.
-
-                    //kick
-                    clientSocket.Shutdown(SocketShutdown.Both);
-                    Console.WriteLine("Bye..");
-                    clientSocket.Close();
-                }
+                //accept = blocking함수라서 모든 실행이 여기서 멈추고(따라서 사용안함)
+                //client 입장 안하면 아래 단계 가지도 않을거고
+                //client 접속하면 자동으로 완료되면서 다음으로 넘어감.
+                // Socket clientSocket = _listener.Accept();
             }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            
         }
     }
 }

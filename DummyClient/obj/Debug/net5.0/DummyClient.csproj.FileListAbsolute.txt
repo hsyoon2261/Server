@@ -3,7 +3,6 @@ E:\csharpstudy\Server\DummyClient\bin\Debug\net5.0\DummyClient.deps.json
 E:\csharpstudy\Server\DummyClient\bin\Debug\net5.0\DummyClient.runtimeconfig.json
 E:\csharpstudy\Server\DummyClient\bin\Debug\net5.0\DummyClient.runtimeconfig.dev.json
 E:\csharpstudy\Server\DummyClient\bin\Debug\net5.0\DummyClient.dll
-E:\csharpstudy\Server\DummyClient\bin\Debug\net5.0\ref\DummyClient.dll
 E:\csharpstudy\Server\DummyClient\bin\Debug\net5.0\DummyClient.pdb
 E:\csharpstudy\Server\DummyClient\obj\Debug\net5.0\DummyClient.csproj.AssemblyReference.cache
 E:\csharpstudy\Server\DummyClient\obj\Debug\net5.0\DummyClient.GeneratedMSBuildEditorConfig.editorconfig
@@ -14,3 +13,4 @@ E:\csharpstudy\Server\DummyClient\obj\Debug\net5.0\DummyClient.dll
 E:\csharpstudy\Server\DummyClient\obj\Debug\net5.0\ref\DummyClient.dll
 E:\csharpstudy\Server\DummyClient\obj\Debug\net5.0\DummyClient.pdb
 E:\csharpstudy\Server\DummyClient\obj\Debug\net5.0\DummyClient.genruntimeconfig.cache
+E:\csharpstudy\Server\DummyClient\obj\Debug\net5.0\refint\DummyClient.dll

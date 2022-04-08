@@ -7,27 +7,39 @@ namespace ServerCore
     public class Listener
     {
         Socket _listenSocket;
+        private Action<Socket> _onAcceptHandler;
 
-        public void Init(IPEndPoint endPoint)
+        public void Init(IPEndPoint endPoint, Action<Socket> onAcceptHandler)
         {
             _listenSocket = new Socket(endPoint.AddressFamily,SocketType.Stream,ProtocolType.Tcp);
+            _onAcceptHandler += onAcceptHandler;
+            //onAcceptHandler : 
+            
+            
             _listenSocket.Bind(endPoint);
-            //backlog : 최대 대기 수 라이브 시 조절하면 되는 수치
+            //backlog : 최대 대기 수, therefore 라이브 시 조절하면 되는 수치
             _listenSocket.Listen(10);
             
-            //register
+            //register => 3줄 동시접속 많을때, for문으로 성능개선 =>  session#1 3:00
             SocketAsyncEventArgs args = new SocketAsyncEventArgs(); //한번 만들어 주면 계속 재사용이 가능하다.
             //Completed : EventHandler 이벤트 방식 ( 콜백방식으로 OnAccepCompleted를 호출)
             //콜백함수(OnAcceptComplted)를 매개변수로 넣어준다.
             //param in method : object , TEventArgs(SocketAsyncEventArgs)
-            args.Completed += new EventHandler<SocketAsyncEventArgs>(OnAcceptCompleted); 
+            //콜백 스레드풀 레드존 데드락
+            //처음에만 인위적으로 만들어 준거
+            args.Completed += new EventHandler<SocketAsyncEventArgs>(OnAcceptCompleted);
             //init register
             RegisterAccept(args);
+
         }
 
         void RegisterAccept(SocketAsyncEventArgs args)
-        {
-            bool pending = _listenSocket.AcceptAsync(args); //비동기 방식 : 예약
+        {          
+            //시작하기전에 기존에 있던 잔재(OnAcceptCompleted args) 들을 다 없애야한다.
+            args.AcceptSocket = null;
+            
+            
+            bool pending = _listenSocket.AcceptAsync(args); //비동기 방식 : 당장 불러오는 것이 아닌 예약
             //AcceptAsync return type : boolean
             //AcceptAsync는 당장 완료한다는 보장이 없으니 일단 요청을 하긴 하되(등록) 
             //pending 을 check해서 pending이 false 라면
@@ -40,7 +52,11 @@ namespace ServerCore
         {
             if (args.SocketError == SocketError.Success)
             {
-                //TODO
+                //TODO SAEA 가 AcceptSocket을 던져준다. (예약 완료된걸 전달해준다 생각하면됨)
+                _onAcceptHandler.Invoke(args.AcceptSocket);
+                Random rnd = new Random();
+                double rand = rnd.NextDouble();
+                args.UserToken = rand;
             }
             else
             {
@@ -50,13 +66,13 @@ namespace ServerCore
             // why 한번 process 끝났으니 다음 작업을 위해 등록을 해주는 것
             RegisterAccept(args);
         }
-        public Socket Accept()
-        {
+        //public Socket Accept()
+        //{
             //blcoking 계열 함수 accept를 해결해야한다.
             //SocketAsyncEventArgs을 이용해 비동기로 해결하자.
              //비동기는 값이 없어도 리턴을 때려버릴 수 있기 때문에 주의하자. 
-            return _listenSocket.Accept();
-        }
+            //return _listenSocket.Accept();
+        //}
     }
 }
 
