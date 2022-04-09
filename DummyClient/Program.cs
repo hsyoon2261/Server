@@ -27,7 +27,7 @@ namespace DummyClient
                 IPEndPoint endPoint = new IPEndPoint(ipAddr, 7888);
 
                 //socket setting
-                // Socket socket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                Socket socket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 // hssoc test = new hssoc(socket);
                 // test._userId = "completo";
                 //TODO 만들어보기 
