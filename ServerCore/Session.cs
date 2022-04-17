@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
 namespace ServerCore
 {
-    public class Session
+    abstract class Session
     {
         private Socket _socket;
         private int _disconnected = 0;
@@ -23,6 +24,10 @@ namespace ServerCore
         SocketAsyncEventArgs _sendArgs = new SocketAsyncEventArgs();
         SocketAsyncEventArgs _recvArgs = new SocketAsyncEventArgs();
 
+        public abstract void OnConnected(EndPoint endPoint);
+        public abstract void OnRecv(ArraySegment<byte> buffer);
+        public abstract void OnSend(int numOfBytes);
+        public abstract void OnDisconnected(EndPoint endPoint);
 
         public void Start(Socket socket)
         {
@@ -166,7 +171,7 @@ namespace ServerCore
                     //Console.WriteLine(args.UserToken);
                     //encoding byte to string
                     string recvData = Encoding.UTF8.GetString(args.Buffer, args.Offset, args.BytesTransferred);
-                    Console.WriteLine($"{args.UserToken} : {recvData}");
+                    Console.WriteLine($"[From Client] : {recvData}");
                     //했으니 다시 대기하세요. (초기화는 위에서)
                     RegisterRecv();
                 }

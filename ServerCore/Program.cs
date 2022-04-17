@@ -8,6 +8,21 @@ using System.Threading.Tasks;
 
 namespace ServerCore
 {
+    class GameSeesion : Session
+    {
+        public override void OnConnected(EndPoint endPoint)
+        {
+        }
+        public override void OnRecv(ArraySegment<byte> buffer)
+        {
+        }
+        public override void OnSend(int numOfBytes)
+        {
+        }
+        public override void OnDisconnected(EndPoint endPoint)
+        {
+        }
+    }
     class Program
     {
         private static Listener _listener = new Listener();
@@ -17,7 +32,7 @@ namespace ServerCore
             try
             {
 
-                Session session = new Session();
+                GameSeesion session = new GameSeesion();
                 session.Start(clientSocket);
                 byte[] sendBuff = Encoding.UTF8.GetBytes("Hello first chat server !");
                 session.Send(sendBuff);
@@ -46,6 +61,7 @@ namespace ServerCore
             //start listening from client
             _listener.Init(endPoint, OnAcceptHandler);
             Console.WriteLine("listening...");
+            
             while (true)
             {
                 //accept = blocking함수라서 모든 실행이 여기서 멈추고(따라서 사용안함)

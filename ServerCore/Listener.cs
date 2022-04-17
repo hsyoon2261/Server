@@ -8,6 +8,7 @@ namespace ServerCore
     {
         Socket _listenSocket;
         private Action<Socket> _onAcceptHandler;
+        //action과 다르게 func는 result type이 있는 애다.
 
         public void Init(IPEndPoint endPoint, Action<Socket> onAcceptHandler)
         {
